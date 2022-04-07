@@ -1,17 +1,25 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => {
-        state.products.slice(state.products.availableProducts);
+        return state.products.availableProducts;
     });
 
     return (
-        <FlatList>
-            <Text>Test</Text>
-        </FlatList>
+        <FlatList 
+            data={products} 
+            keyExtractor={item => item.id}
+            renderItem={
+                itemData => <Text>{itemData.item.title}</Text>
+            }
+        />
     );
+};
+
+ProductsOverviewScreen.navigationOptions = {
+    headerTitle: "All products"
 };
 
 export default ProductsOverviewScreen;
